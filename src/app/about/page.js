@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import React from 'react';
-import aboutus from '@/images/aboutus.jpg';
-import Button from '@/components/Button';
+import Image from "next/image";
+import React from "react";
+import aboutus from "@/images/aboutus.jpg";
+import Button from "@/components/Button";
 
 const About = () => {
   return (
@@ -13,7 +13,6 @@ const About = () => {
           alt="About us image"
           width={600}
           height={300}
-          
           quality={80}
           placeholder="blur"
           className="object-cover"

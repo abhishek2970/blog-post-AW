@@ -43,7 +43,10 @@ const Contact = () => {
 
   return (
     <div className="px-6 py-10 max-w-6xl mx-auto">
-      <h1 className="text-5xl font-bold text-center mb-10 font-serif">Let&apos;s Keep In Touch</h1>
+      {/* Apostrophe escaped to avoid react/no-unescaped-entities error */}
+      <h1 className="text-5xl font-bold text-center mb-10 font-serif">
+        Let&apos;s Keep In Touch
+      </h1>
 
       <div className="flex flex-col md:flex-row items-center gap-10">
         {/* Left Image */}
@@ -53,7 +56,6 @@ const Contact = () => {
             alt="Contact us"
             width={600}
             height={300}
-            
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover animate-move"
             priority
@@ -90,7 +92,11 @@ const Contact = () => {
             className="w-full p-3 border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-purple-300 resize-none"
           />
 
-          <Button type="submit" disabled={status.loading} text={status.loading ? "Sending..." : "Send"} />
+          <Button
+            type="submit"
+            disabled={status.loading}
+            text={status.loading ? "Sending..." : "Send"}
+          />
 
           {status.error && <p className="text-red-600 mt-2">{status.error}</p>}
           {status.success && <p className="text-green-600 mt-2">{status.success}</p>}
