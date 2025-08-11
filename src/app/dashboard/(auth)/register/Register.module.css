@@ -1,0 +1,78 @@
+.container {
+  max-width: 400px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #1e1e2f;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.input {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #2a2a3d;
+  color: #eee;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.input::placeholder {
+  color: #999;
+}
+
+.input:focus {
+  background-color: #3c3c58;
+  color: #fff;
+  outline: none;
+  box-shadow: 0 0 5px 2px #6a7dfc;
+}
+
+.button {
+  padding: 0.85rem 0;
+  background: linear-gradient(90deg, #6a7dfc, #42a1ff);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(106, 125, 252, 0.6);
+}
+
+.button:hover {
+  background: linear-gradient(90deg, #42a1ff, #6a7dfc);
+  transform: scale(1.05);
+}
+
+.link {
+  display: block;
+  margin-top: 1.5rem;
+  text-align: center;
+  color: #6a7dfc;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #42a1ff;
+  text-decoration: underline;
+}
+
+/* Added error message styling */
+.error {
+  color: #ff6b6b;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  text-align: center;
+}

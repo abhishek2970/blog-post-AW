@@ -1,26 +1,68 @@
+/* Tailwind base imports */
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Body base styles */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden; /* Prevent horizontal scroll on mobile */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Link styling - clean, no underline globally */
+a {
+  text-decoration: none;
+  color: inherit; /* inherit color but can override with Tailwind classes */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Padding for main and section elements for consistent layout */
+main,
+section {
+  padding: 2rem 1rem;
+}
+
+/* Animations */
+
+/* Vertical floating effect */
+@keyframes move {
+  from {
+    transform: translateY(-15px);
+  }
+  to {
+    transform: translateY(15px) scale(1.05);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-move {
+  animation: move 3s infinite ease-in-out alternate;
+}
+
+/* Horizontal floating effect */
+@keyframes floatX {
+  0% {
+    transform: translateX(8rem);
+  }
+  100% {
+    transform: translateX(10rem) scale(1.05);
+  }
+}
+
+.animate-float-x {
+  animation: floatX 3s ease-in-out infinite alternate;
+}
+
+/* Responsive layout helpers for alternating content */
+
+/* Odd children: stacked vertically on mobile, horizontal row on md+ */
+.child:nth-child(odd) {
+  @apply flex flex-col md:flex-row;
+}
+
+/* Even children: stacked vertically on mobile, reversed row on md+ */
+.child:nth-child(even) {
+  @apply flex flex-col md:flex-row-reverse;
 }
