@@ -1,11 +1,16 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 async function getData() {
-  const res = await fetch('http://localhost:3000/api/post');
+  // ✅ Use relative path if /api/post is part of the same Next.js project
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || ''}/api/post`, {
+    // Forces Next.js to fetch fresh data on build/SSR
+    cache: "no-store",
+  });
+
   if (!res.ok) {
-    throw new Error('Cannot fetch posts');
+    throw new Error("Cannot fetch posts");
   }
   return res.json();
 }
