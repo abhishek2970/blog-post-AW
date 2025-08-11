@@ -43,7 +43,7 @@ const Contact = () => {
 
   return (
     <div className="px-6 py-10 max-w-6xl mx-auto">
-      <h1 className="text-5xl font-bold text-center mb-10 font-serif">Let's Keep In Touch</h1>
+      <h1 className="text-5xl font-bold text-center mb-10 font-serif">Let&apos;s Keep In Touch</h1>
 
       <div className="flex flex-col md:flex-row items-center gap-10">
         {/* Left Image */}
