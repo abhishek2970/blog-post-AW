@@ -2,7 +2,11 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 async function getData(id) {
-  const res = await fetch(`http://localhost:3000/api/post/${id}`);
+  // ✅ Relative path → works in dev and production
+  const res = await fetch(`/api/post/${id}`, {
+    cache: "no-store", // Always fetch latest
+  });
+
   if (!res.ok) {
     throw new Error("Post not found");
   }
@@ -14,6 +18,7 @@ const BlogPost = async ({ params }) => {
   try {
     data = await getData(params.id);
   } catch (error) {
+    // Render Next.js built‑in 404 page
     notFound();
   }
 
@@ -25,6 +30,7 @@ const BlogPost = async ({ params }) => {
           <p className="text-gray-700 mb-4">{data.desc}</p>
           <p className="text-sm text-gray-500 italic">By {data.username}</p>
         </div>
+
         <div className="relative w-full md:w-1/3 h-48 md:h-64 rounded-lg overflow-hidden">
           <Image
             src={data.img || "/fallback-image.jpg"}
@@ -35,12 +41,19 @@ const BlogPost = async ({ params }) => {
           />
         </div>
       </div>
+
+      {/* Article content */}
       <article className="text-gray-800 leading-relaxed prose max-w-none">
-        {/* Sample static content replaced by your actual post content */}
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec consectetur interdum,
-          nisl nisi aliquet nisl, eget aliquam nisl nisi euismod nisl.
-        </p>
+        {/* Replace with your dynamic content field if stored in DB */}
+        {data.content ? (
+          <div dangerouslySetInnerHTML={{ __html: data.content }} />
+        ) : (
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod,
+            nisl nec consectetur interdum, nisl nisi aliquet nisl, eget aliquam
+            nisl nisi euismod nisl.
+          </p>
+        )}
       </article>
     </div>
   );
