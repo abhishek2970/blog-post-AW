@@ -3,16 +3,26 @@ import Image from "next/image";
 import Link from "next/link";
 
 async function getData() {
-  // ✅ Use relative URL — works in local & production (Vercel)
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || ""}/api/post`, {
-    cache: "no-store", // Always get fresh data
-  });
+  // ✅ Use production URL on Vercel, local URL in dev
+  const baseUrl =
+    process.env.VERCEL_ENV === "production"
+      ? "https://blog-post-aw-ib32.vercel.app"
+      : "http://localhost:3000";
 
-  if (!res.ok) {
-    throw new Error("Cannot fetch posts");
+  try {
+    const res = await fetch(`${baseUrl}/api/post`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch posts: ${res.status} ${res.statusText}`);
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    throw error;
   }
-
-  return res.json();
 }
 
 const Blog = async () => {
@@ -20,11 +30,10 @@ const Blog = async () => {
 
   try {
     data = await getData();
-  } catch (err) {
-    // Optionally show a friendly error state
+  } catch {
     return (
       <div className="max-w-5xl mx-auto p-6 text-center text-red-600">
-        Failed to load blog posts.
+        ❌ Failed to load blog posts. Please try again later.
       </div>
     );
   }
@@ -40,12 +49,15 @@ const Blog = async () => {
         >
           <div className="w-48 h-40 relative flex-shrink-0">
             <Image
-              src={item.img || "/fallback-image.jpg"} // ✅ fallback image
+              src={
+                item.img && item.img.startsWith("http")
+                  ? item.img
+                  : "/fallback-image.jpg"
+              }
               alt={item.title || "Blog post image"}
               fill
               className="rounded-md object-cover"
               sizes="200px"
-              priority={false}
             />
           </div>
           <div className="flex-1">

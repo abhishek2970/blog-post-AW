@@ -1,14 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['images.pexels.com', 'images.unsplash.com'],
+    domains: [
+      "images.unsplash.com",
+      "images.pexels.com",
+      "blog-post-aw-ib32.vercel.app" // ✅ your production domain
+    ],
   },
   env: {
     MONGO: process.env.MONGO,
-  },
-  eslint: {
-    ignoreDuringBuilds: true, // ✅ Prevent ESLint errors from blocking Vercel build
+    NEXT_PUBLIC_SITE_URL:
+      process.env.NEXT_PUBLIC_SITE_URL || "https://blog-post-aw-ib32.vercel.app",
   },
 };
 
-export default nextConfig;
+export default nextConfig; // ✅ ESM export
