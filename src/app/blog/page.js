@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 async function getData() {
-  // ✅ Use relative URL — works in local dev and in production
-  const res = await fetch("/api/post", {
-    cache: "no-store", // Ensures fresh data each time
+  // ✅ Use relative URL — works in local & production (Vercel)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || ""}/api/post`, {
+    cache: "no-store", // Always get fresh data
   });
 
   if (!res.ok) {
@@ -16,7 +16,18 @@ async function getData() {
 }
 
 const Blog = async () => {
-  const data = await getData();
+  let data;
+
+  try {
+    data = await getData();
+  } catch (err) {
+    // Optionally show a friendly error state
+    return (
+      <div className="max-w-5xl mx-auto p-6 text-center text-red-600">
+        Failed to load blog posts.
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-5xl mx-auto space-y-6 px-6 py-8">
@@ -29,8 +40,8 @@ const Blog = async () => {
         >
           <div className="w-48 h-40 relative flex-shrink-0">
             <Image
-              src={item.img}
-              alt={item.title}
+              src={item.img || "/fallback-image.jpg"} // ✅ fallback image
+              alt={item.title || "Blog post image"}
               fill
               className="rounded-md object-cover"
               sizes="200px"
