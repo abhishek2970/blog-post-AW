@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +13,7 @@ async function getData() {
 
   try {
     const res = await fetch(`${baseUrl}/api/post`, {
-      cache: "no-store",
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) {
